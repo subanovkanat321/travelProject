@@ -20,7 +20,10 @@ public class Category {
     private Integer level;
     private String description;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "category_kindness",
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "kindness_id"))
     private List<Kindness> kindnesses;
 
     public Long getId() {

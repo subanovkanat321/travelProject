@@ -1,12 +1,10 @@
 package com.example.travelProject.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.annotation.ManagedBean;
 import javax.persistence.*;
 import java.util.List;
 
@@ -21,8 +19,10 @@ public class Tour {
     private Long id;
     private String location;
     private String description;
-
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "tour_comment",
+            joinColumns = @JoinColumn(name = "tour_id"),
+            inverseJoinColumns = @JoinColumn(name = "comment_id"))
     private List<Comment> comments;
 
     public Long getId() {
