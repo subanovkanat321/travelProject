@@ -1,15 +1,14 @@
 package com.example.travelProject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -23,7 +22,41 @@ public class Comment {
     private String text;
     private Integer likes;
     private Integer dislikes;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     private LocalDateTime time;
+
+    @ManyToMany
+    @JsonIgnore
+    private List<User> users;
+    @ManyToMany
+    @JsonIgnore
+    private List<UserPutMark> userChecks;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public List<UserPutMark> getUserChecks() {
+        return userChecks;
+    }
+
+    public void setUserChecks(List<UserPutMark> userChecks) {
+        this.userChecks = userChecks;
+    }
 
     public Long getId() {
         return id;
@@ -32,6 +65,7 @@ public class Comment {
     public void setId(Long id) {
         this.id = id;
     }
+
 
     public String getText() {
         return text;

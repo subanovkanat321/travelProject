@@ -20,7 +20,7 @@ public class Category {
     private Integer level;
     private String description;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "category_kindness",
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "kindness_id"))

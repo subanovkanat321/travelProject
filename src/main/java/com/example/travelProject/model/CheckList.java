@@ -1,5 +1,8 @@
 package com.example.travelProject.model;
 
+import com.example.travelProject.enums.CheckListStatus;
+import com.example.travelProject.service.ChecklistService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,9 +19,11 @@ public class CheckList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @OneToOne
-    @JoinColumn(name = "price_id")
-    private Price price;
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     @OneToOne
     @JoinColumn(name = "tour_id")
     private Tour tour;
@@ -26,11 +31,21 @@ public class CheckList {
     @JoinColumn(name = "user_id")
     private User user;
 
+    private CheckListStatus status;
+
     private Integer howManyDays;
     private Integer howManyPeople;
-    private Integer forPayment;
+    private Integer paid;
 
     private LocalDateTime time;
+
+    public CheckListStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CheckListStatus status) {
+        this.status = status;
+    }
 
     public Long getId() {
         return id;
@@ -40,12 +55,12 @@ public class CheckList {
         this.id = id;
     }
 
-    public Price getPrice() {
-        return price;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setPrice(Price price) {
-        this.price = price;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Tour getTour() {
@@ -80,12 +95,12 @@ public class CheckList {
         this.howManyPeople = howManyPeople;
     }
 
-    public Integer getForPayment() {
-        return forPayment;
+    public Integer getPaid() {
+        return paid;
     }
 
-    public void setForPayment(Integer forPayment) {
-        this.forPayment = forPayment;
+    public void setPaid(Integer paid) {
+        this.paid = paid;
     }
 
     public LocalDateTime getTime() {

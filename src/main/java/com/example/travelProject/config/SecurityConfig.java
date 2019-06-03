@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
 
-                .antMatchers("/user/getAll").access("hasRole('ADMIN')")
+                .antMatchers("/user/getAll").permitAll()
                 .antMatchers("/user/findById").access("hasRole('ADMIN')")
                 .antMatchers("/user/add").access("hasRole('ADMIN')")
                 .antMatchers("/user/update").access("hasRole('ADMIN')")
@@ -78,7 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/feedback/deleteById").access("hasRole('ADMIN')")
                 .antMatchers("/feedback/deleteAll").access("hasRole('ADMIN')")
 
-                .antMatchers("/checkList/getAll").access("hasRole('ADMIN')")
+                .antMatchers("/checkList/getAll").permitAll()
                 .antMatchers("/checkList/findById").access("hasRole('ADMIN')")
                 .antMatchers("/checkList/add").access("hasRole('ADMIN')")
                 .antMatchers("/checkList/update").access("hasRole('ADMIN')")

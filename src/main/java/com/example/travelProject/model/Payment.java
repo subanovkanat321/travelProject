@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Random;
 
 @Data
 @Builder
@@ -22,10 +21,8 @@ public class Payment {
     private Long id;
     @Enumerated(EnumType.ORDINAL)
     private PaymentStatus status;
-    private Integer amount;
-    @JsonIgnore
+    private Integer forPayment;
     private Integer confirmationCode;
-
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
@@ -48,12 +45,12 @@ public class Payment {
         this.status = status;
     }
 
-    public Integer getAmount() {
-        return amount;
+    public Integer getForPayment() {
+        return forPayment;
     }
 
-    public void setAmount(Integer amount) {
-        this.amount = amount;
+    public void setForPayment(Integer forPayment) {
+        this.forPayment = forPayment;
     }
 
     public Integer getConfirmationCode() {
