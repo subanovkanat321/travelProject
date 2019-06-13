@@ -5,6 +5,7 @@ import com.example.travelProject.service.CrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class CategoryController {
     @Autowired
     private CrudService<Category> categoryService;
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/getAll")
     public ResponseEntity<List<? extends Object>> getCategories() {
         try {
@@ -56,7 +58,7 @@ public class CategoryController {
     public ResponseEntity<? extends Object> deleteCategoryById(@PathVariable Long id) {
         try {
             this.categoryService.deleteById(id);
-            return new ResponseEntity<>("Deleted category " , HttpStatus.OK);
+            return new ResponseEntity<>("Deleted category ", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
         }

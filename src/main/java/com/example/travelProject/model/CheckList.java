@@ -1,12 +1,14 @@
 package com.example.travelProject.model;
 
 import com.example.travelProject.enums.CheckListStatus;
+import com.example.travelProject.helpers.CloneUser;
 import com.example.travelProject.service.ChecklistService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -27,20 +29,33 @@ public class CheckList {
     @OneToOne
     @JoinColumn(name = "tour_id")
     private Tour tour;
+
     @OneToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
+
+    @OneToOne
+    private CloneUser user1;
 
     private CheckListStatus status;
 
     private Integer howManyDays;
     private Integer howManyPeople;
-    private Integer paid;
+    private Integer forPayment;
 
     private LocalDateTime time;
 
     public CheckListStatus getStatus() {
         return status;
+    }
+
+    public CloneUser getUser1() {
+        return user1;
+    }
+
+    public void setUser1(CloneUser user1) {
+        this.user1 = user1;
     }
 
     public void setStatus(CheckListStatus status) {
@@ -95,12 +110,12 @@ public class CheckList {
         this.howManyPeople = howManyPeople;
     }
 
-    public Integer getPaid() {
-        return paid;
+    public Integer getForPayment() {
+        return forPayment;
     }
 
-    public void setPaid(Integer paid) {
-        this.paid = paid;
+    public void setForPayment(Integer forPayment) {
+        this.forPayment = forPayment;
     }
 
     public LocalDateTime getTime() {

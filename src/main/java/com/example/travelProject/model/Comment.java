@@ -1,5 +1,6 @@
 package com.example.travelProject.model;
 
+import com.example.travelProject.helpers.CloneUser;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Comment {
+public class Comment implements Comparable<Comment> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,8 +25,12 @@ public class Comment {
     private Integer dislikes;
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
     private LocalDateTime time;
+
+    @ManyToOne
+    private CloneUser user1;
 
     @ManyToMany
     @JsonIgnore
@@ -34,12 +39,25 @@ public class Comment {
     @JsonIgnore
     private List<UserPutMark> userChecks;
 
+    @Override
+    public int compareTo(Comment o) {
+        return getTime().compareTo(o.getTime());
+    }
+
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public CloneUser getUser1() {
+        return user1;
+    }
+
+    public void setUser1(CloneUser user1) {
+        this.user1 = user1;
     }
 
     public List<User> getUsers() {

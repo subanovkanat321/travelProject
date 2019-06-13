@@ -18,6 +18,7 @@ public class Tour {
     private Long id;
     private String location;
     private String description;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "tour_comment",
             joinColumns = @JoinColumn(name = "tour_id"),

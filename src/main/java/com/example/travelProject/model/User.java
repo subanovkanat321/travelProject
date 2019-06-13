@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -32,7 +33,7 @@ public class User {
 
     private String mobilePhone;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     @Email(message = "*Please provide a valid Email")
     @NotEmpty(message = "*Please provide an email")
     private String email;
@@ -115,5 +116,46 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public static class Builder {
+        private String name;
+        private String lastName;
+        private String mobilePhone;
+        private String email;
+        private String password;
+        private int active;
+        private Set<Role> roles;
+
+        public Builder(String email, String password, int active, Set<Role> roles) {
+            this.email = email;
+            this.password = password;
+            this.active = active;
+            this.roles = roles;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+        public Builder withLastame(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+        public Builder withPhone(String phone) {
+            this.mobilePhone = phone;
+            return this;
+        }
+        public User build() {
+            User user = new User();
+            user.name = this.name;
+            user.lastName = this.lastName;
+            user.mobilePhone = this.mobilePhone;
+            user.email = this.email;
+            user.password = this.password;
+            user.active = this.active;
+            user.roles = this.roles;
+            return user;
+        }
     }
 }

@@ -1,21 +1,12 @@
 package com.example.travelProject.utils;
 
 public class BuyTour {
-    private Long userId;
     private Long tourId;
     private Long categoryId;
     private Integer howManyDays;
     private Integer howManyPeople;
 
     public BuyTour() {
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public Long getTourId() {
