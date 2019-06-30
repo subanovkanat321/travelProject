@@ -8,8 +8,6 @@ import com.example.travelProject.helpers.Helper;
 import com.example.travelProject.model.*;
 import com.example.travelProject.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -41,10 +39,7 @@ public class LogicServicelmpl implements LogicService {
     @Autowired
     private UserPutMarkRep userPutMarkRep;
     @Autowired
-    private CloneUserRep cloneUserRep;
-    @Autowired
     private Helper helper;
-
 
     @Override
     public Comment putMarkOnTheComment(Long tourId, Long commentId, Mark mark) {
@@ -114,8 +109,6 @@ public class LogicServicelmpl implements LogicService {
     public Tour addComment(Long tourId, String text) {
         Comment c = new Comment();
         User user = userRep.findById(helper.getUser().getId()).get();
-        CloneUser cloneUser = helper.getCloneUser(user);
-        c.setUser1(cloneUser);
         c.setUser(user);
         Tour t = getTour(tourId, c);
         List<User> users = new ArrayList<>();
@@ -184,6 +177,7 @@ public class LogicServicelmpl implements LogicService {
         return null;
     }
 
+
     @Override
     public CloneUser registration(User user) {
         List<Role> roles = roleRep.findAll();
@@ -207,19 +201,14 @@ public class LogicServicelmpl implements LogicService {
         cloneUser.setName(user.getName());
         cloneUser.setLastName(user.getLastName());
         cloneUser.setMobilePhone(user.getMobilePhone());
-        cloneUserRep.save(cloneUser);
         userRep.save(user);
         return cloneUser;
     }
-
     @Override
     public Payment buyTour(Long tourId, Long categoryId, Integer howManyDays, Integer howManyPeople) {
         Payment payment = new Payment();
         CheckList checkList = new CheckList();
         User user = userRep.findById(helper.getUser().getId()).get();
-        CloneUser cloneUser = helper.getCloneUser(user);
-        payment.setUser(cloneUser);
-        checkList.setUser1(cloneUser);
         Tour tour = tourRep.findById(tourId).get();
         Category category = categoryRep.findById(categoryId).get();
         checkList.setCategory(category);

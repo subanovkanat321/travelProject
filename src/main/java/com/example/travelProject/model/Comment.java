@@ -25,12 +25,8 @@ public class Comment implements Comparable<Comment> {
     private Integer dislikes;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnore
     private User user;
     private LocalDateTime time;
-
-    @ManyToOne
-    private CloneUser user1;
 
     @ManyToMany
     @JsonIgnore
@@ -50,14 +46,6 @@ public class Comment implements Comparable<Comment> {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public CloneUser getUser1() {
-        return user1;
-    }
-
-    public void setUser1(CloneUser user1) {
-        this.user1 = user1;
     }
 
     public List<User> getUsers() {

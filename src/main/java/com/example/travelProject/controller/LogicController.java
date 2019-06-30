@@ -2,10 +2,7 @@ package com.example.travelProject.controller;
 
 import com.example.travelProject.model.*;
 import com.example.travelProject.service.LogicService;
-import com.example.travelProject.utils.AddComment;
-import com.example.travelProject.utils.BuyTour;
-import com.example.travelProject.utils.PutMark;
-import com.example.travelProject.utils.ToPay;
+import com.example.travelProject.utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +23,7 @@ public class LogicController {
         try {
             return new ResponseEntity<>(usService.registration(user), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response(false, e.toString()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -38,7 +35,7 @@ public class LogicController {
                     buyTour.getHowManyDays(), buyTour.getHowManyPeople());
             return new ResponseEntity<>(payment, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response(false, e.toString()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -49,7 +46,7 @@ public class LogicController {
             CheckList checkList = usService.toPay(toPay.getConfirmCode(), toPay.getSum());
             return new ResponseEntity<>(checkList, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response(false, e.toString()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -60,7 +57,7 @@ public class LogicController {
             Tour tour = usService.addComment(addComment.getTourId(), addComment.getText());
             return new ResponseEntity<>(tour, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response(false, e.toString()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -71,7 +68,7 @@ public class LogicController {
             Comment comment = usService.putMarkOnTheComment(putMark.getTourId(), putMark.getCommentId(),putMark.getMark());
             return new ResponseEntity<>(comment, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response(false, e.toString()), HttpStatus.BAD_REQUEST);
         }
     }
 }

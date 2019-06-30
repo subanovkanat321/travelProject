@@ -5,6 +5,7 @@ import com.example.travelProject.helpers.CloneUser;
 import com.example.travelProject.model.*;
 
 public interface LogicService {
+
     CloneUser registration(User u);
 
     Payment buyTour(Long tourId, Long categoryId, Integer howManyDays, Integer howManyPeople);

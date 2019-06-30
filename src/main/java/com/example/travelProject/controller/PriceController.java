@@ -2,6 +2,7 @@ package com.example.travelProject.controller;
 
 import com.example.travelProject.model.Price;
 import com.example.travelProject.service.CrudService;
+import com.example.travelProject.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class PriceController {
         try {
             return new ResponseEntity<>(priceCrudService.findById(id), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response(false, e.toString()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -39,7 +40,7 @@ public class PriceController {
         try {
             return new ResponseEntity<>(priceCrudService.save(price), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response(false, e.toString()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -48,7 +49,7 @@ public class PriceController {
         try {
             return new ResponseEntity<>(priceCrudService.save(price), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response(false, e.toString()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -58,7 +59,7 @@ public class PriceController {
             this.priceCrudService.deleteById(id);
             return new ResponseEntity<>("Deleted price" + id, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response(false, e.toString()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -68,7 +69,7 @@ public class PriceController {
             this.priceCrudService.deleteAll();
             return new ResponseEntity<>("Deleted all prices", HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response(false, e.toString()), HttpStatus.BAD_REQUEST);
         }
     }
 }

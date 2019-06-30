@@ -1,35 +1,14 @@
 package com.example.travelProject.helpers;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
-
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
+@Component
 public class CloneUser {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
-    private Long id;
     private String name;
     private String lastName;
     private String mobilePhone;
     private String email;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

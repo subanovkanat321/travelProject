@@ -27,19 +27,7 @@ public class Payment {
     private Integer confirmationCode;
     @ManyToOne
     @JoinColumn(name = "client_id")
-    @JsonIgnore
     private User client;
-
-    @ManyToOne
-    private CloneUser user;
-
-    public CloneUser getUser() {
-        return user;
-    }
-
-    public void setUser(CloneUser user) {
-        this.user = user;
-    }
 
     private LocalDateTime time;
 

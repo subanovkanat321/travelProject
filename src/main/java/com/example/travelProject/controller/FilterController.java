@@ -1,6 +1,7 @@
 package com.example.travelProject.controller;
 
 import com.example.travelProject.service.FilterService;
+import com.example.travelProject.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class FilterController {
         try {
             return new ResponseEntity<>(usService.getMe(), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new Response(false, e.toString()),HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -32,11 +32,7 @@ public class CheckList {
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnore
     private User user;
-
-    @OneToOne
-    private CloneUser user1;
 
     private CheckListStatus status;
 
@@ -48,14 +44,6 @@ public class CheckList {
 
     public CheckListStatus getStatus() {
         return status;
-    }
-
-    public CloneUser getUser1() {
-        return user1;
-    }
-
-    public void setUser1(CloneUser user1) {
-        this.user1 = user1;
     }
 
     public void setStatus(CheckListStatus status) {

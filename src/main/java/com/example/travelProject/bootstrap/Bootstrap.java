@@ -1,9 +1,7 @@
 package com.example.travelProject.bootstrap;
 
-import com.example.travelProject.helpers.CloneUser;
 import com.example.travelProject.model.*;
 import com.example.travelProject.repository.ChecklistRep;
-import com.example.travelProject.repository.CloneUserRep;
 import com.example.travelProject.repository.RoleRep;
 import com.example.travelProject.service.CrudService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +32,6 @@ public class Bootstrap implements CommandLineRunner {
 
     @Autowired
     private ChecklistRep checklistRep;
-
-    @Autowired
-    private CloneUserRep cloneUserRep;
 
     @Override
     public void run(String... args) throws Exception {

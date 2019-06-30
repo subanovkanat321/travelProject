@@ -8,10 +8,11 @@ import com.example.travelProject.model.CheckList;
 import com.example.travelProject.model.Comment;
 import com.example.travelProject.model.Payment;
 import com.example.travelProject.model.User;
-import com.example.travelProject.repository.*;
+import com.example.travelProject.repository.ChecklistRep;
+import com.example.travelProject.repository.CommentRep;
+import com.example.travelProject.repository.PaymentRep;
+import com.example.travelProject.repository.UserRep;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

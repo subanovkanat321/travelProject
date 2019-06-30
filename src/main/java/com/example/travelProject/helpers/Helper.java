@@ -1,7 +1,6 @@
 package com.example.travelProject.helpers;
 
 import com.example.travelProject.model.User;
-import com.example.travelProject.repository.CloneUserRep;
 import com.example.travelProject.repository.UserRep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,9 +11,6 @@ import org.springframework.stereotype.Service;
 public class Helper {
     @Autowired
     private UserRep userRep;
-
-    @Autowired
-    private CloneUserRep cloneUserRep;
 
     public Helper() {
     }
@@ -40,7 +36,6 @@ public class Helper {
         cloneUser.setName(user.getName());
         cloneUser.setLastName(user.getLastName());
         cloneUser.setMobilePhone(user.getMobilePhone());
-        cloneUserRep.save(cloneUser);
         return cloneUser;
     }
 }
