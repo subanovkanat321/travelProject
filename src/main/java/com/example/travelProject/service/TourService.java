@@ -2,15 +2,17 @@ package com.example.travelProject.service;
 
 import com.example.travelProject.model.Tour;
 import com.example.travelProject.repository.TourRep;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class TourService implements CrudService<Tour>{
-    @Autowired
-    private TourRep tourRep;
+    private final TourRep tourRep;
+
+    public TourService(TourRep tourRep) {
+        this.tourRep = tourRep;
+    }
 
     @Override
     public List<Tour> getAll() {

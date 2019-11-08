@@ -1,21 +1,10 @@
 package com.example.travelProject.model;
 
 import com.example.travelProject.enums.CheckListStatus;
-import com.example.travelProject.helpers.CloneUser;
-import com.example.travelProject.service.ChecklistService;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 public class CheckList {
     @Id

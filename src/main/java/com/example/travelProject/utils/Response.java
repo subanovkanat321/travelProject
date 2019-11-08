@@ -1,8 +1,8 @@
 package com.example.travelProject.utils;
 
 public class Response {
-    boolean status;
-    String message;
+    private boolean status;
+    private String message;
 
     public Response() {
     }

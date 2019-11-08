@@ -2,24 +2,23 @@ package com.example.travelProject.helpers;
 
 import com.example.travelProject.model.User;
 import com.example.travelProject.repository.UserRep;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
 public class Helper {
-    @Autowired
-    private UserRep userRep;
+    private final UserRep userRep;
 
-    public Helper() {
+    public Helper(UserRep userRep) {
+        this.userRep = userRep;
     }
 
     public User getUser() {
         return userRep.findByEmail(getUserName());
     }
 
-    public String getUserName() {
+    private String getUserName() {
         String username;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {

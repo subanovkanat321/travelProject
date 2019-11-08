@@ -1,20 +1,11 @@
 package com.example.travelProject.model;
 
-import com.example.travelProject.helpers.CloneUser;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 public class Comment implements Comparable<Comment> {
     @Id

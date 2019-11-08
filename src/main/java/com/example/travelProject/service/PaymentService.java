@@ -2,15 +2,17 @@ package com.example.travelProject.service;
 
 import com.example.travelProject.model.Payment;
 import com.example.travelProject.repository.PaymentRep;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class PaymentService implements CrudService<Payment> {
-    @Autowired
-    private PaymentRep paymentRep;
+    private final PaymentRep paymentRep;
+
+    public PaymentService(PaymentRep paymentRep) {
+        this.paymentRep = paymentRep;
+    }
 
     @Override
     public List<Payment> getAll() {

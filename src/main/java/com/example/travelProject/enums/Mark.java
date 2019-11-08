@@ -5,6 +5,6 @@ public enum Mark {
     DISLIKE("-");
 
 
-    Mark(String symobol) {
+    Mark(String symbol) {
     }
 }

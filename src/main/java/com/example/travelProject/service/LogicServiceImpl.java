@@ -7,7 +7,6 @@ import com.example.travelProject.helpers.CloneUser;
 import com.example.travelProject.helpers.Helper;
 import com.example.travelProject.model.*;
 import com.example.travelProject.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,31 +14,43 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
-public class LogicServicelmpl implements LogicService {
+public class LogicServiceImpl implements LogicService {
 
-    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    Random random = new Random();
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private Random random = new Random();
 
-    @Autowired
-    private UserRep userRep;
-    @Autowired
-    private CommentRep commentRep;
-    @Autowired
-    private RoleRep roleRep;
-    @Autowired
-    private ChecklistRep checklistRep;
-    @Autowired
-    private TourRep tourRep;
-    @Autowired
-    private CategoryRep categoryRep;
-    @Autowired
-    private PriceRep priceRep;
-    @Autowired
-    private PaymentRep paymentRep;
-    @Autowired
-    private UserPutMarkRep userPutMarkRep;
-    @Autowired
-    private Helper helper;
+    private final UserRep userRep;
+    private final CommentRep commentRep;
+    private final RoleRep roleRep;
+    private final ChecklistRep checklistRep;
+    private final TourRep tourRep;
+    private final CategoryRep categoryRep;
+    private final PriceRep priceRep;
+    private final PaymentRep paymentRep;
+    private final UserPutMarkRep userPutMarkRep;
+    private final Helper helper;
+
+    public LogicServiceImpl(UserRep userRep,
+                            CommentRep commentRep,
+                            RoleRep roleRep,
+                            ChecklistRep checklistRep,
+                            TourRep tourRep,
+                            CategoryRep categoryRep,
+                            PriceRep priceRep,
+                            PaymentRep paymentRep,
+                            UserPutMarkRep userPutMarkRep,
+                            Helper helper) {
+        this.userRep = userRep;
+        this.commentRep = commentRep;
+        this.roleRep = roleRep;
+        this.checklistRep = checklistRep;
+        this.tourRep = tourRep;
+        this.categoryRep = categoryRep;
+        this.priceRep = priceRep;
+        this.paymentRep = paymentRep;
+        this.userPutMarkRep = userPutMarkRep;
+        this.helper = helper;
+    }
 
     @Override
     public Comment putMarkOnTheComment(Long tourId, Long commentId, Mark mark) {

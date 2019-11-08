@@ -8,9 +8,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CategoryServicelmpl implements CrudService<Category> {
-    @Autowired
-    private CategoryRep categoryRep;
+public class CategoryService implements CrudService<Category> {
+    private final CategoryRep categoryRep;
+
+    public CategoryService(CategoryRep categoryRep) {
+        this.categoryRep = categoryRep;
+    }
 
     @Override
     public List<Category> getAll() {

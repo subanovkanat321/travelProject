@@ -1,8 +1,8 @@
 package com.example.travelProject.utils;
 
 public class ToPay {
-    Integer sum;
-    Integer confirmCode;
+    private Integer sum;
+    private Integer confirmCode;
 
     public ToPay() {
     }

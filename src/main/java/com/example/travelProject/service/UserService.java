@@ -1,23 +1,19 @@
 package com.example.travelProject.service;
 
-import com.example.travelProject.enums.CheckListStatus;
-import com.example.travelProject.enums.Mark;
-import com.example.travelProject.enums.PaymentStatus;
-import com.example.travelProject.model.*;
-import com.example.travelProject.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.example.travelProject.model.User;
+import com.example.travelProject.repository.UserRep;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
 
 @Service
-public class UserServicelmpl implements CrudService<User> {
-    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    Random random = new Random();
-    @Autowired
-    private UserRep userRep;
+public class UserService implements CrudService<User> {
+
+    private final UserRep userRep;
+
+    public UserService(UserRep userRep) {
+        this.userRep = userRep;
+    }
 
     @Override
     public List<User> getAll() {

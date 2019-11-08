@@ -1,8 +1,8 @@
 package com.example.travelProject.utils;
 
 public class AddComment {
-    Long tourId;
-    String text;
+    private Long tourId;
+    private String text;
 
     public AddComment() {
     }

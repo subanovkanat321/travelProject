@@ -3,7 +3,6 @@ package com.example.travelProject.controller;
 import com.example.travelProject.model.Tour;
 import com.example.travelProject.service.CrudService;
 import com.example.travelProject.utils.Response;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,12 +13,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/tour")
 public class TourController {
-    @Autowired
-    private CrudService<Tour> tourCrudService;
+    private final CrudService<Tour> tourCrudService;
+
+    public TourController(CrudService<Tour> tourCrudService) {
+        this.tourCrudService = tourCrudService;
+    }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/getAll")
-    public ResponseEntity<List<? extends Object>> getTours() {
+    public ResponseEntity<List<?>> getTours() {
         try {
             return new ResponseEntity<>(tourCrudService.getAll(), HttpStatus.OK);
         } catch (Exception e) {
@@ -28,7 +30,7 @@ public class TourController {
     }
 
     @GetMapping("/getById/{id}")
-    public ResponseEntity<? extends Object> getTourById(@PathVariable Long id) {
+    public ResponseEntity<?> getTourById(@PathVariable Long id) {
         try {
             return new ResponseEntity<>(tourCrudService.findById(id), HttpStatus.OK);
         } catch (Exception e) {
@@ -38,7 +40,7 @@ public class TourController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<? extends Object> saveTour(@RequestBody Tour tour) {
+    public ResponseEntity<?> saveTour(@RequestBody Tour tour) {
         try {
             return new ResponseEntity<>(tourCrudService.save(tour), HttpStatus.OK);
         } catch (Exception e) {
@@ -47,7 +49,7 @@ public class TourController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<? extends Object> updateTour(@RequestBody Tour tour) {
+    public ResponseEntity<?> updateTour(@RequestBody Tour tour) {
         try {
             return new ResponseEntity<>(tourCrudService.save(tour), HttpStatus.OK);
         } catch (Exception e) {
@@ -56,7 +58,7 @@ public class TourController {
     }
 
     @DeleteMapping("/deleteById/{id}")
-    public ResponseEntity<? extends Object> deleteTourById(@PathVariable Long id) {
+    public ResponseEntity<?> deleteTourById(@PathVariable Long id) {
         try {
             this.tourCrudService.deleteById(id);
             return new ResponseEntity<>("Deleted tour ", HttpStatus.OK);
@@ -66,7 +68,7 @@ public class TourController {
     }
 
     @DeleteMapping("/deleteAll")
-    public ResponseEntity<? extends Object> deleteAllTours() {
+    public ResponseEntity<?> deleteAllTours() {
         try {
             this.tourCrudService.deleteAll();
             return new ResponseEntity<>("Deleted all tours", HttpStatus.OK);

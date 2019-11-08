@@ -2,15 +2,17 @@ package com.example.travelProject.service;
 
 import com.example.travelProject.model.CheckList;
 import com.example.travelProject.repository.ChecklistRep;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ChecklistService implements CrudService<CheckList>{
-    @Autowired
-    private ChecklistRep checklistRep;
+    private final ChecklistRep checklistRep;
+
+    public ChecklistService(ChecklistRep checklistRep) {
+        this.checklistRep = checklistRep;
+    }
 
     @Override
     public List<CheckList> getAll() {

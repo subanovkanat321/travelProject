@@ -3,7 +3,6 @@ package com.example.travelProject.controller;
 import com.example.travelProject.model.Payment;
 import com.example.travelProject.service.CrudService;
 import com.example.travelProject.utils.Response;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +12,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/payment")
 public class PaymentController {
-    @Autowired
-    private CrudService<Payment> paymentCrudService;
+    private final CrudService<Payment> paymentCrudService;
+
+    public PaymentController(CrudService<Payment> paymentCrudService) {
+        this.paymentCrudService = paymentCrudService;
+    }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<? extends Object>> getPayments() {
+    public ResponseEntity<List<?>> getPayments() {
         try {
             return new ResponseEntity<>(paymentCrudService.getAll(), HttpStatus.OK);
         } catch (Exception e) {
@@ -26,7 +28,7 @@ public class PaymentController {
     }
 
     @GetMapping("/getById/{id}")
-    public ResponseEntity<? extends Object> getPaymentById(@PathVariable Long id) {
+    public ResponseEntity<?> getPaymentById(@PathVariable Long id) {
         try {
             return new ResponseEntity<>(paymentCrudService.findById(id), HttpStatus.OK);
         } catch (Exception e) {
@@ -36,7 +38,7 @@ public class PaymentController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<? extends Object> savePayment(@RequestBody Payment payment) {
+    public ResponseEntity<?> savePayment(@RequestBody Payment payment) {
         try {
             return new ResponseEntity<>(paymentCrudService.save(payment), HttpStatus.OK);
         } catch (Exception e) {
@@ -45,7 +47,7 @@ public class PaymentController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<? extends Object> updatePayment(@RequestBody Payment payment) {
+    public ResponseEntity<?> updatePayment(@RequestBody Payment payment) {
         try {
             return new ResponseEntity<>(paymentCrudService.save(payment), HttpStatus.OK);
         } catch (Exception e) {
@@ -54,7 +56,7 @@ public class PaymentController {
     }
 
     @DeleteMapping("/deleteById/{id}")
-    public ResponseEntity<? extends Object> deletePaymentById(@PathVariable Long id) {
+    public ResponseEntity<?> deletePaymentById(@PathVariable Long id) {
         try {
             this.paymentCrudService.deleteById(id);
             return new ResponseEntity<>("Deleted payment", HttpStatus.OK);
@@ -64,7 +66,7 @@ public class PaymentController {
     }
 
     @DeleteMapping("/deleteAll")
-    public ResponseEntity<? extends Object> deleteAllPayments() {
+    public ResponseEntity<?> deleteAllPayments() {
         try {
             this.paymentCrudService.deleteAll();
             return new ResponseEntity<>("Deleted all payments", HttpStatus.OK);

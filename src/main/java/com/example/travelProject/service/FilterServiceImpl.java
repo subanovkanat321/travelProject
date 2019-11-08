@@ -11,8 +11,6 @@ import com.example.travelProject.model.User;
 import com.example.travelProject.repository.ChecklistRep;
 import com.example.travelProject.repository.CommentRep;
 import com.example.travelProject.repository.PaymentRep;
-import com.example.travelProject.repository.UserRep;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,17 +18,21 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class FilterServicelmpl implements FilterService {
-    @Autowired
-    private UserRep userRep;
-    @Autowired
-    private CommentRep commentRep;
-    @Autowired
-    private ChecklistRep checklistRep;
-    @Autowired
-    private PaymentRep paymentRep;
-    @Autowired
-    private Helper helper;
+public class FilterServiceImpl implements FilterService {
+    private final CommentRep commentRep;
+    private final ChecklistRep checklistRep;
+    private final PaymentRep paymentRep;
+    private final Helper helper;
+
+    public FilterServiceImpl(CommentRep commentRep,
+                             ChecklistRep checklistRep,
+                             PaymentRep paymentRep,
+                             Helper helper) {
+        this.commentRep = commentRep;
+        this.checklistRep = checklistRep;
+        this.paymentRep = paymentRep;
+        this.helper = helper;
+    }
 
     @Override
     public CloneUser getMe() {

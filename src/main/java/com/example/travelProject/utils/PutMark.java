@@ -3,9 +3,9 @@ package com.example.travelProject.utils;
 import com.example.travelProject.enums.Mark;
 
 public class PutMark {
-    Long tourId;
-    Long commentId;
-    Mark mark;
+    private Long tourId;
+    private Long commentId;
+    private Mark mark;
 
     public PutMark() {
     }

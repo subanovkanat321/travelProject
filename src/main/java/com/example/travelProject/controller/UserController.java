@@ -1,9 +1,8 @@
 package com.example.travelProject.controller;
 
-import com.example.travelProject.model.*;
+import com.example.travelProject.model.User;
 import com.example.travelProject.service.CrudService;
 import com.example.travelProject.utils.Response;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +12,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    @Autowired
-    private CrudService<User> userService;
+    private final CrudService<User> userService;
+
+    public UserController(CrudService<User> userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<? extends Object>> getUsers() {
+    public ResponseEntity<List<?>> getUsers() {
         try {
             return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
         } catch (Exception e) {
@@ -26,7 +28,7 @@ public class UserController {
     }
 
     @GetMapping("/getById/{id}")
-    public ResponseEntity<? extends Object> getUserById(@PathVariable Long id) {
+    public ResponseEntity<?> getUserById(@PathVariable Long id) {
         try {
             return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
         } catch (Exception e) {
@@ -36,7 +38,7 @@ public class UserController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<? extends Object> saveUser(@RequestBody User user) {
+    public ResponseEntity<?> saveUser(@RequestBody User user) {
         try {
             return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
         } catch (Exception e) {
@@ -45,7 +47,7 @@ public class UserController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<? extends Object> updateUser(@RequestBody User user) {
+    public ResponseEntity<?> updateUser(@RequestBody User user) {
         try {
             return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
         } catch (Exception e) {
@@ -54,7 +56,7 @@ public class UserController {
     }
 
     @DeleteMapping("/deleteById/{id}")
-    public ResponseEntity<? extends Object> deleteUserById(@PathVariable Long id) {
+    public ResponseEntity<?> deleteUserById(@PathVariable Long id) {
         try {
             this.userService.deleteById(id);
             return new ResponseEntity<>("Deleted tour", HttpStatus.OK);
@@ -64,7 +66,7 @@ public class UserController {
     }
 
     @DeleteMapping("/deleteAll")
-    public ResponseEntity<? extends Object> deleteAllUsers() {
+    public ResponseEntity<?> deleteAllUsers() {
         try {
             this.userService.deleteAll();
             return new ResponseEntity<>("Deleted all users", HttpStatus.OK);

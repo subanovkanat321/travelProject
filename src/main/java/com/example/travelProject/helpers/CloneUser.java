@@ -1,14 +1,17 @@
 package com.example.travelProject.helpers;
 
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Bean;
 
-@Component
 public class CloneUser {
     private String name;
     private String lastName;
     private String mobilePhone;
     private String email;
 
+    @Bean
+    public CloneUser cloneUser() {
+        return new CloneUser();
+    }
 
     public String getName() {
         return name;

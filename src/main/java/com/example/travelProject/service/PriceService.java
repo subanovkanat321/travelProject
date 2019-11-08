@@ -7,9 +7,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class PriceServicelmpl implements CrudService<Price> {
-    @Autowired
-    private PriceRep priceRep;
+public class PriceService implements CrudService<Price> {
+    private final PriceRep priceRep;
+
+    public PriceService(PriceRep priceRep) {
+        this.priceRep = priceRep;
+    }
 
     @Override
     public List<Price> getAll() {

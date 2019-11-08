@@ -9,8 +9,11 @@ import java.util.List;
 
 @Service
 public class CommentService  implements CrudService<Comment>{
-    @Autowired
-    private CommentRep commentRep;
+    private final CommentRep commentRep;
+
+    public CommentService(CommentRep commentRep) {
+        this.commentRep = commentRep;
+    }
 
     @Override
     public List<Comment> getAll() {

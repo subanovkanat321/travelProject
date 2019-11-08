@@ -2,15 +2,17 @@ package com.example.travelProject.service;
 
 import com.example.travelProject.model.Kindness;
 import com.example.travelProject.repository.KindnessRep;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class KindnessServicelmpl implements CrudService<Kindness> {
-    @Autowired
-    private KindnessRep kindnessRep;
+public class KindnessService implements CrudService<Kindness> {
+    private final KindnessRep kindnessRep;
+
+    public KindnessService(KindnessRep kindnessRep) {
+        this.kindnessRep = kindnessRep;
+    }
 
     @Override
     public List<Kindness> getAll() {
