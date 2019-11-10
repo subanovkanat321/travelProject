@@ -1,0 +1,15 @@
+create table category (id  bigserial not null, description varchar(255), level int4, primary key (id));
+create table category_kindness (category_id int8 not null, kindness_id int8 not null);
+create table check_list (id  bigserial not null, for_payment int4, how_many_days int4, how_many_people int4, status int4, time timestamp, category_id int8, tour_id int8, user_id int8, primary key (id));
+create table comment (id  bigserial not null, dislikes int4, likes int4, text varchar(255), time timestamp, user_id int8, primary key (id));
+create table comment_user_checks (comment_id int8 not null, user_checks_id int8 not null);
+create table comment_users (comment_id int8 not null, users_id int8 not null);
+create table kindness (id  bigserial not null, kindness varchar(255), primary key (id));
+create table payment (id  bigserial not null, confirmation_code int4, for_payment int4, status int4, time timestamp, client_id int8, primary key (id));
+create table price (id  bigserial not null, price int4, category_id int8, tour int8, primary key (id));
+create table role1 (id  bigserial not null, role varchar(100) not null, primary key (id));
+create table tour (id  bigserial not null, description varchar(255), location varchar(255), primary key (id));
+create table tour_comment (tour_id int8 not null, comment_id int8 not null);
+create table user1 (id  bigserial not null, active int4, email varchar(255), last_name varchar(255), mobile_phone varchar(255), name varchar(255), password varchar(255), primary key (id));
+create table user_role (user_id int8 not null, role_id int8 not null, primary key (user_id, role_id));
+create table user_put_mark (id  bigserial not null, mark int4, time timestamp, user_id int8, primary key (id));
