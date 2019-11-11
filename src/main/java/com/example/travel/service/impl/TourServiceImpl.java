@@ -55,7 +55,7 @@ public class TourServiceImpl implements CrudService<Tour>, TourService {
         return t;
     }
 
-    public Tour getTour(Long tourId, Comment comment) {
+    private Tour getTour(Long tourId, Comment comment) {
         Tour t = tourRepository.findById(tourId).get();
         List<Comment> comments = t.getComments();
         comments.add(comment);

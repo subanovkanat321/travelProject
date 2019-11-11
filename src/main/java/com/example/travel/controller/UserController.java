@@ -6,7 +6,6 @@ import com.example.travel.service.UserService;
 import com.example.travel.utils.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +22,6 @@ public class UserController {
         this.userService = userService1;
     }
 
-    @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/me")
     public ResponseEntity<?> getMe() {
         try {
@@ -44,7 +42,6 @@ public class UserController {
         }
     }
 
-
     @GetMapping("/getAll")
     public ResponseEntity<List<?>> getUsers() {
         try {
@@ -53,7 +50,6 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
     @GetMapping("/getById/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id) {
         try {

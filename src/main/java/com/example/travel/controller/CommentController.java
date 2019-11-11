@@ -24,7 +24,6 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/getComments")
     public ResponseEntity<List<?>> getFilteredComments() {
 

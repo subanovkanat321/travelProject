@@ -7,7 +7,6 @@ import com.example.travel.utils.Response;
 import com.example.travel.utils.ToPay;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,8 +23,6 @@ public class CheckListController {
         this.checkListCrudService = checkListCrudService;
         this.checklistService = checklistService;
     }
-
-    @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/getPaidChecklists")
     public ResponseEntity<List<?>> getPaidChecklists() {
         try {
@@ -35,7 +32,6 @@ public class CheckListController {
         }
     }
 
-    @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/getNotPaidChecklists")
     public ResponseEntity<List<?>> getNotPaidChecklists() {
         try {

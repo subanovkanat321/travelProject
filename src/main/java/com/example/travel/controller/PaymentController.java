@@ -25,9 +25,6 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
-
-
-    @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/getConfirmPayments")
     public ResponseEntity<List<?>> getConfirmPayments() {
         try {
@@ -37,7 +34,6 @@ public class PaymentController {
         }
     }
 
-    @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/getUnConfirmPayments")
     public ResponseEntity<List<?>> getUnConfirmPayments() {
         try {
@@ -46,8 +42,6 @@ public class PaymentController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
-
 
     @PostMapping("/buyTour")
     @ResponseStatus(HttpStatus.CREATED)
@@ -60,6 +54,7 @@ public class PaymentController {
             return new ResponseEntity<>(new Response(false, e.toString()), HttpStatus.BAD_REQUEST);
         }
     }
+
     @GetMapping("/getAll")
     public ResponseEntity<List<?>> getPayments() {
         try {

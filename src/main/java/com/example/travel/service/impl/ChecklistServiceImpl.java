@@ -17,16 +17,16 @@ import java.util.List;
 
 @Service
 public class ChecklistServiceImpl implements CrudService<CheckList>, ChecklistService {
-    private final ChecklistRepository checklistRep;
+    private final ChecklistRepository checklistRepository;
 
     private final PaymentRepository paymentRepository;
 
     private final CurrentUser currentUser;
 
-    public ChecklistServiceImpl(ChecklistRepository checklistRep,
+    public ChecklistServiceImpl(ChecklistRepository checklistRepository,
                                 PaymentRepository paymentRepository,
                                 CurrentUser currentUser) {
-        this.checklistRep = checklistRep;
+        this.checklistRepository = checklistRepository;
         this.paymentRepository = paymentRepository;
         this.currentUser = currentUser;
     }
@@ -34,7 +34,7 @@ public class ChecklistServiceImpl implements CrudService<CheckList>, ChecklistSe
 
     @Override
     public CheckList toPay(Integer confirmationCode, Integer sum) {
-        List<CheckList> checkLists = checklistRep.findAll();
+        List<CheckList> checkLists = checklistRepository.findAll();
         List<Payment> payments = paymentRepository.findAll();
         boolean paid = false;
         boolean paidAllSum = false;
@@ -69,7 +69,7 @@ public class ChecklistServiceImpl implements CrudService<CheckList>, ChecklistSe
                         checkList.setStatus(CheckListStatus.Paid);
                     }
                     checkList.setForPayment(s);
-                    checklistRep.save(checkList);
+                    checklistRepository.save(checkList);
                 }
                 return checkList;
             }
@@ -79,7 +79,7 @@ public class ChecklistServiceImpl implements CrudService<CheckList>, ChecklistSe
 
     @Override
     public List<CheckList> getPaidChecklists() {
-        List<CheckList> checkLists = checklistRep.findChecklistsByUser(currentUser.getUser());
+        List<CheckList> checkLists = checklistRepository.findChecklistsByUser(currentUser.getUser());
         List<CheckList> paidChecklists = new ArrayList<>();
         for (CheckList checkList : checkLists) {
             if (checkList.getStatus().equals(CheckListStatus.Paid)) {
@@ -92,7 +92,7 @@ public class ChecklistServiceImpl implements CrudService<CheckList>, ChecklistSe
 
     @Override
     public List<CheckList> getNotPaidChecklists() {
-        List<CheckList> checkLists = checklistRep.findChecklistsByUser(currentUser.getUser());
+        List<CheckList> checkLists = checklistRepository.findChecklistsByUser(currentUser.getUser());
         List<CheckList> notPaidChecklists = new ArrayList<>();
         for (CheckList checkList : checkLists) {
             if (checkList.getStatus().equals(CheckListStatus.NotPaid)) {
@@ -105,31 +105,31 @@ public class ChecklistServiceImpl implements CrudService<CheckList>, ChecklistSe
 
     @Override
     public List<CheckList> getAll() {
-        return checklistRep.findAll();
+        return checklistRepository.findAll();
     }
 
     @Override
     public CheckList findById(Long id) {
-        return checklistRep.findById(id).get();
+        return checklistRepository.findById(id).get();
     }
 
     @Override
     public CheckList save(CheckList checkList) {
-        return checklistRep.save(checkList);
+        return checklistRepository.save(checkList);
     }
 
     @Override
     public CheckList update(CheckList checkList) {
-        return checklistRep.save(checkList);
+        return checklistRepository.save(checkList);
     }
 
     @Override
     public void deleteById(Long id) {
-        checklistRep.deleteById(id);
+        checklistRepository.deleteById(id);
     }
 
     @Override
     public void deleteAll() {
-        checklistRep.deleteAll();
+        checklistRepository.deleteAll();
     }
 }

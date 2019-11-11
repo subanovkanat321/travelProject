@@ -56,7 +56,7 @@ public class KindnessController {
     }
 
     @DeleteMapping("/deleteById/{id}")
-    public ResponseEntity<? extends Object> deleteKindnessById(@PathVariable Long id) {
+    public ResponseEntity<  ?> deleteKindnessById(@PathVariable Long id) {
         try {
             this.kindnessService.deleteById(id);
             return new ResponseEntity<>("Deleted kindness", HttpStatus.OK);
@@ -66,7 +66,7 @@ public class KindnessController {
     }
 
     @DeleteMapping("/deleteAll")
-    public ResponseEntity<? extends Object> deleteAllKindnesses() {
+    public ResponseEntity<?> deleteAllKindnesses() {
         try {
             this.kindnessService.deleteAll();
             return new ResponseEntity<>("Deleted all kindnesses", HttpStatus.OK);
