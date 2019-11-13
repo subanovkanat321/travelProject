@@ -14,6 +14,7 @@ import com.example.travel.service.CommentService;
 import com.example.travel.service.CrudService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -109,10 +110,12 @@ public class CommentServiceImpl implements CrudService<Comment>, CommentService 
         }
         c.setUsers(userIds);
         c.setUserChecks(userBln);
+        c.setTime(LocalDateTime.now());
         commentRepository.save(c);
         return c;
     }
 
+    //Crud methods
     @Override
     public List<Comment> getAll() {
         return commentRepository.findAll();

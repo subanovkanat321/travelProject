@@ -15,6 +15,7 @@ public class CategoryServiceImpl implements CrudService<Category> {
         this.categoryRepository = categoryRepository;
     }
 
+    //Crud methods
     @Override
     public List<Category> getAll() {
         return categoryRepository.findAll();

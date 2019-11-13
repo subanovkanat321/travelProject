@@ -61,6 +61,7 @@ public class UserServiceImpl implements CrudService<User>, UserService {
         return user;
     }
 
+    //Crud methods
     @Override
     public List<User> getAll() {
         return userRepository.findAll();

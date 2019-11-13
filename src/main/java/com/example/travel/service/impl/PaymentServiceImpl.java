@@ -50,24 +50,16 @@ public class PaymentServiceImpl implements CrudService<Payment>, PaymentService 
 
     @Override
     public Payment buyTour(Long tourId, Long categoryId, Integer howManyDays, Integer howManyPeople) {
-        Payment payment = new Payment();
-        CheckList checkList = new CheckList();
-        User user = userRepository.findById(currentUser.getUser().getId()).get();
+        return getSumToPay(tourId, categoryId, howManyDays, howManyPeople);
+    }
+
+    private Payment getSumToPay(Long tourId, Long categoryId, Integer howManyDays, Integer howManyPeople) {
+        Payment payment = getPayment();
+        User user = getCurrentUser();
         Tour tour = tourRepository.findById(tourId).get();
         Category category = categoryRepository.findById(categoryId).get();
-        checkList.setCategory(category);
-        checkList.setHowManyDays(howManyDays);
-        checkList.setHowManyPeople(howManyPeople);
-        checkList.setUser(user);
-        checkList.setTime(LocalDateTime.now());
-        checkList.setTour(tour);
-        checkList.setStatus(CheckListStatus.NotPaid);
-        payment.setConfirmationCode(random.nextInt(99999));
-        System.out.println("This is confirmation code: " + payment.getConfirmationCode());
-        payment.setStatus(PaymentStatus.AWAITING_CONFIRMATION);
-        payment.setClient(user);
-        payment.setTime(LocalDateTime.now());
         List<Price> prices = priceRepository.findAll();
+        CheckList checkList = getCheckList(category, user, tour, howManyDays, howManyPeople);
         for (Price price : prices) {
             if (price.getTour().getId().equals(tourId) && price.getCategory().getId().equals(categoryId)) {
                 checkList.setForPayment(price.getPrice() * checkList.getHowManyDays() * checkList.getHowManyPeople());
@@ -78,6 +70,31 @@ public class PaymentServiceImpl implements CrudService<Payment>, PaymentService 
         paymentRepository.save(payment);
         checklistRepository.save(checkList);
         return payment;
+    }
+    private User getCurrentUser() {
+        return userRepository.findById(currentUser.getUser().getId()).get();
+    }
+
+    private Payment getPayment() {
+        Payment payment = new Payment();
+        payment.setConfirmationCode(random.nextInt(99999));
+        payment.setStatus(PaymentStatus.AWAITING_CONFIRMATION);
+        payment.setClient(getCurrentUser());
+        payment.setTime(LocalDateTime.now());
+        System.out.println("This is confirmation code: " + payment.getConfirmationCode());
+        return payment;
+    }
+
+    private CheckList getCheckList(Category category, User user, Tour tour, Integer howManyDays, Integer howManyPeople) {
+        CheckList checkList = new CheckList();
+        checkList.setCategory(category);
+        checkList.setHowManyDays(howManyDays);
+        checkList.setHowManyPeople(howManyPeople);
+        checkList.setUser(user);
+        checkList.setTime(LocalDateTime.now());
+        checkList.setTour(tour);
+        checkList.setStatus(CheckListStatus.NotPaid);
+        return checkList;
     }
 
     @Override
@@ -104,6 +121,7 @@ public class PaymentServiceImpl implements CrudService<Payment>, PaymentService 
         return waitingPayments;
     }
 
+    //Crud methods
     @Override
     public List<Payment> getAll() {
         return paymentRepository.findAll();

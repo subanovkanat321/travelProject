@@ -37,32 +37,38 @@ public class TourServiceImpl implements CrudService<Tour>, TourService {
     }
 
     @Override
-    public Tour addComment(Long tourId, String text) {
-        Comment c = new Comment();
-        User user = userRepository.findById(currentUser.getUser().getId()).get();
-        c.setUser(user);
-        Tour t = getTour(tourId, c);
+    public Tour addCommentToTour(Long tourId, String text) {
+        return getTourAddedComment(tourId, getComment(text));
+    }
+
+    private User getCurrentUser() {
+        return userRepository.findById(currentUser.getUser().getId()).get();
+    }
+
+    private Comment getComment(String text) {
+        Comment comment = new Comment();
+        comment.setUser(getCurrentUser());
         List<User> users = new ArrayList<>();
-        c.setUsers(users);
-        List<UserPutMark> userPutMarks = new ArrayList<>();
-        c.setUserChecks(userPutMarks);
-        c.setText(text);
-        c.setDislikes(0);
-        c.setLikes(0);
-        c.setTime(LocalDateTime.now());
-        commentRepository.save(c);
-        tourRepository.save(t);
-        return t;
+        comment.setUsers(users);
+        List<UserPutMark> usersPutMark = new ArrayList<>();
+        comment.setUserChecks(usersPutMark);
+        comment.setText(text);
+        comment.setDislikes(0);
+        comment.setLikes(0);
+        comment.setTime(LocalDateTime.now());
+        return commentRepository.save(comment);
     }
 
-    private Tour getTour(Long tourId, Comment comment) {
-        Tour t = tourRepository.findById(tourId).get();
-        List<Comment> comments = t.getComments();
+    private Tour getTourAddedComment(Long tourId, Comment comment) {
+        Tour tour = tourRepository.findById(tourId).get();
+        List<Comment> comments = tour.getComments();
         comments.add(comment);
-        return t;
+        tour.setComments(comments);
+        tourRepository.save(tour);
+        return tour;
     }
 
-
+    //Crud methods
     @Override
     public List<Tour> getAll() {
         return tourRepository.findAll();

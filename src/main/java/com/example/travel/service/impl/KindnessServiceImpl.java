@@ -15,6 +15,7 @@ public class KindnessServiceImpl implements CrudService<Kindness> {
         this.kindnessRepository = kindnessRepository;
     }
 
+    //Crud methods
     @Override
     public List<Kindness> getAll() {
         return kindnessRepository.findAll();

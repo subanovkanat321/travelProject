@@ -27,7 +27,7 @@ public class TourController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> addComment(@RequestBody AddComment addComment) {
         try {
-            Tour tour = tourService.addComment(addComment.getTourId(), addComment.getText());
+            Tour tour = tourService.addCommentToTour(addComment.getTourId(), addComment.getText());
             return new ResponseEntity<>(tour, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new Response(false, e.toString()), HttpStatus.BAD_REQUEST);

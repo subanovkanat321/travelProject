@@ -45,7 +45,7 @@ public class CheckListController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> toPay(@RequestBody ToPay toPay) {
         try {
-            CheckList checkList = checklistService.toPay(toPay.getConfirmCode(), toPay.getSum());
+            CheckList checkList = checklistService.pay(toPay.getConfirmCode(), toPay.getSum());
             return new ResponseEntity<>(checkList, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new Response(false, e.toString()), HttpStatus.BAD_REQUEST);

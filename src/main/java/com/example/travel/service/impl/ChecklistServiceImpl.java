@@ -33,19 +33,18 @@ public class ChecklistServiceImpl implements CrudService<CheckList>, ChecklistSe
 
 
     @Override
-    public CheckList toPay(Integer confirmationCode, Integer sum) {
-        List<CheckList> checkLists = checklistRepository.findAll();
-        List<Payment> payments = paymentRepository.findAll();
+    public CheckList pay(Integer confirmationCode, Integer sum) {
+        return processPay(confirmationCode, sum);
+    }
+
+    private CheckList processPay(Integer confirmationCode, Integer sum) {
+        Integer s = 0;
         boolean paid = false;
         boolean paidAllSum = false;
-        Integer s = 0;
+        List<Payment> payments = paymentRepository.findAll();
         for (Payment payment : payments) {
             if (payment.getClient().getId().equals(currentUser.getUser().getId())) {
                 if (payment.getConfirmationCode().equals(confirmationCode)) {
-                    if (sum > payment.getForPayment()) {
-                        break;
-                    }
-
                     payment.setTime(LocalDateTime.now());
                     payment.setForPayment(payment.getForPayment() - sum);
                     s = payment.getForPayment();
@@ -61,7 +60,11 @@ public class ChecklistServiceImpl implements CrudService<CheckList>, ChecklistSe
                 }
             }
         }
+        return updateCheckList(paid, paidAllSum, s);
+    }
 
+    private CheckList updateCheckList(Boolean paid, Boolean paidAllSum, Integer s) {
+        List<CheckList> checkLists = checklistRepository.findAll();
         if (paid) {
             for (CheckList checkList : checkLists) {
                 if (checkList.getUser().getId().equals(currentUser.getUser().getId())) {
@@ -102,7 +105,7 @@ public class ChecklistServiceImpl implements CrudService<CheckList>, ChecklistSe
         return notPaidChecklists;
     }
 
-
+    //Crud methods
     @Override
     public List<CheckList> getAll() {
         return checklistRepository.findAll();

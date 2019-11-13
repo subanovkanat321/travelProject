@@ -14,6 +14,7 @@ public class PriceServiceImpl implements CrudService<Price> {
         this.priceRepository = priceRepository;
     }
 
+    //Crud methods
     @Override
     public List<Price> getAll() {
         return priceRepository.findAll();

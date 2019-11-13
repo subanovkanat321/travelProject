@@ -61,8 +61,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/tour/addComment").access("hasAnyRole('USER', 'ADMIN')")
 
                 .antMatchers("/user/me").access("hasAnyRole('USER', 'ADMIN')")
-                .antMatchers("/user/registration").access("hasAnyRole('USER', 'ADMIN')")
-
 
                 .and()
                 .httpBasic()
