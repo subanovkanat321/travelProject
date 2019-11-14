@@ -101,11 +101,7 @@ public class PaymentServiceImpl implements CrudService<Payment>, PaymentService 
     public List<Payment> getConfirmPayments() {
         List<Payment> payments = paymentRepository.findPaymentsByClient(currentUser.getUser());
         List<Payment> okPayments = new ArrayList<>();
-        for (Payment payment : payments) {
-            if (payment.getStatus().equals(PaymentStatus.OK)) {
-                okPayments.add(payment);
-            }
-        }
+        payments.stream().filter(x -> x.getStatus().equals(PaymentStatus.OK)).forEach(okPayments::add);
         return okPayments;
     }
 
@@ -113,11 +109,7 @@ public class PaymentServiceImpl implements CrudService<Payment>, PaymentService 
     public List<Payment> getUnConfirmPayments() {
         List<Payment> payments = paymentRepository.findPaymentsByClient(currentUser.getUser());
         List<Payment> waitingPayments = new ArrayList<>();
-        for (Payment payment : payments) {
-            if (payment.getStatus().equals(PaymentStatus.AWAITING_CONFIRMATION)) {
-                waitingPayments.add(payment);
-            }
-        }
+        payments.stream().filter(x -> x.getStatus().equals(PaymentStatus.AWAITING_CONFIRMATION)).forEach(waitingPayments::add);
         return waitingPayments;
     }
 

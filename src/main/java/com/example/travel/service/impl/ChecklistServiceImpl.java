@@ -84,11 +84,7 @@ public class ChecklistServiceImpl implements CrudService<CheckList>, ChecklistSe
     public List<CheckList> getPaidChecklists() {
         List<CheckList> checkLists = checklistRepository.findChecklistsByUser(currentUser.getUser());
         List<CheckList> paidChecklists = new ArrayList<>();
-        for (CheckList checkList : checkLists) {
-            if (checkList.getStatus().equals(CheckListStatus.Paid)) {
-                paidChecklists.add(checkList);
-            }
-        }
+        checkLists.stream().filter(x -> x.getStatus().equals(CheckListStatus.Paid)).forEach(paidChecklists::add);
         return paidChecklists;
     }
 
@@ -97,11 +93,7 @@ public class ChecklistServiceImpl implements CrudService<CheckList>, ChecklistSe
     public List<CheckList> getNotPaidChecklists() {
         List<CheckList> checkLists = checklistRepository.findChecklistsByUser(currentUser.getUser());
         List<CheckList> notPaidChecklists = new ArrayList<>();
-        for (CheckList checkList : checkLists) {
-            if (checkList.getStatus().equals(CheckListStatus.NotPaid)) {
-                notPaidChecklists.add(checkList);
-            }
-        }
+        checkLists.stream().filter(x -> x.getStatus().equals(CheckListStatus.NotPaid)).forEach(notPaidChecklists::add);
         return notPaidChecklists;
     }
 
